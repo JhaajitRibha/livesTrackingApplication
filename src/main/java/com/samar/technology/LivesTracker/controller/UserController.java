@@ -3,6 +3,7 @@ package com.samar.technology.LivesTracker.controller;
 
 import com.samar.technology.LivesTracker.model.User;
 import com.samar.technology.LivesTracker.service.UserService;
+import com.samar.technology.LivesTracker.utility.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id)
-                .map(user -> ResponseEntity.ok().body(user))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto user =  userService.getUserById(id);
+        return user==null?ResponseEntity.status(HttpStatus.NOT_FOUND).body(null):ResponseEntity.status(HttpStatus.FOUND).body(user);
     }
 
     @PostMapping

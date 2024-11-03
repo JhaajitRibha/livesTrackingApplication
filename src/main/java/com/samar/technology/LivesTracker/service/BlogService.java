@@ -1,6 +1,7 @@
 package com.samar.technology.LivesTracker.service;
 
 import com.samar.technology.LivesTracker.model.Blog;
+import com.samar.technology.LivesTracker.model.User;
 import com.samar.technology.LivesTracker.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,12 @@ public class BlogService {
 
     @Autowired
     BlogRepository blogRepository;
-    public Blog postBlog(String blogHeading, String blogContent, MultipartFile blogImage) throws IOException {
+    public Blog postBlog(String blogHeading, String blogContent, MultipartFile blogImage, User user) throws IOException {
         Blog blog = new Blog();
         blog.setBlogHeading(blogHeading);
         blog.setBlogContent(blogContent);
         blog.setBlogImage(blogImage.getBytes());
+        blog.setUser(user);
         return blogRepository.save(blog);
     }
 

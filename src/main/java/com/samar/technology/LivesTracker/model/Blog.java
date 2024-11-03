@@ -1,5 +1,8 @@
 package com.samar.technology.LivesTracker.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +25,12 @@ public class Blog {
 
     @Lob
     @Column(name="blog-image")
+    @Basic(fetch = FetchType.LAZY)
     private byte[] blogImage;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    @JsonBackReference
+    private User user;
 
 }

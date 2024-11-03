@@ -1,7 +1,9 @@
 package com.samar.technology.LivesTracker.controller;
 
 import com.samar.technology.LivesTracker.model.Blog;
+import com.samar.technology.LivesTracker.model.User;
 import com.samar.technology.LivesTracker.service.BlogService;
+import com.samar.technology.LivesTracker.service.UserService;
 import com.samar.technology.LivesTracker.utility.BlogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,17 +25,28 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping
     public ResponseEntity<BlogDto> createBlog(
             @RequestParam("blog-heading") String blogHeading,
             @RequestParam("blog-content") String blogContent,
-            @RequestParam("blog-image")MultipartFile image) throws IOException {
+            @RequestParam("blog-image")MultipartFile image,
+            @RequestHeader("username") String username) throws IOException {
 
+        User userWithUsername = userService.findByUsername(username);
+        if(username==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
-        Blog savedBlog = blogService.postBlog(blogHeading,blogContent,image);
+        Blog savedBlog = blogService.postBlog(blogHeading,blogContent,image,userWithUsername);
 
         BlogDto responseToBeSent = new BlogDto(savedBlog.getId(),savedBlog.getBlogHeading(),savedBlog.getBlogContent(),savedBlog.getBlogImage().toString().substring(0,10)+"samar");
-
+        if(userWithUsername!=null){
+           userWithUsername.getUserBlogs().add(savedBlog);
+           userService.createUser(userWithUsername);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseToBeSent);
     }
 
