@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface LivesDictionaryDao {
 
     public String insertDictionary(LivesDictionary livesDictionary);
+
+    public LivesDictionary getWordMeaningXml(Long id);
 }

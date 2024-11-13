@@ -27,4 +27,8 @@ public class LivesDictionaryService {
     public String dictionaryInsertion(LivesDictionary livesDictionary){
         return livesDictionaryDao.insertDictionary(livesDictionary);
     }
+
+    public LivesDictionary getWordMeaningXml(Long id){
+        return livesDictionaryDao.getWordMeaningXml(id);
+    }
 }

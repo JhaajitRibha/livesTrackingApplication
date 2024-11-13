@@ -1,6 +1,9 @@
 package com.samar.technology.LivesTracker.model;
 
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@XmlRootElement(name="lives-dictionary")
 public class LivesDictionary {
 
     @Id
@@ -26,4 +30,25 @@ public class LivesDictionary {
 
     @Column(name="author",nullable = false)
     private String author;
+
+    @XmlAttribute(name="lives-id")
+    public Long getId(){
+        return Id;
+    }
+
+    @XmlElement(name="word")
+    public String getWord(){
+        return word;
+    }
+
+    @XmlElement(name="word-meaning")
+    public String getWordMeaning()
+    {
+        return wordMeaning;
+    }
+
+    @XmlElement(name="author")
+    public String getAuthor(){
+        return author;
+    }
 }

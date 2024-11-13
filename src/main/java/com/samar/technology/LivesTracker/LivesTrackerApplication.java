@@ -7,7 +7,8 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.samar.technology.LivesTracker.beanController","com.samar.technology.LivesTracker.beanService","com.samar.technology.LivesTracker.config"
-,"com.samar.technology.LivesTracker.controller","com.samar.technology.LivesTracker.service","com.samar.technology.LivesTracker.Dao.CommonDao","com.samar.technology.LivesTracker.controller.BlogController"})
+,"com.samar.technology.LivesTracker.controller","com.samar.technology.LivesTracker.service","com.samar.technology.LivesTracker.Dao.CommonDao","com.samar.technology.LivesTracker.controller.BlogController","com.samar.technology.LivesTracker"
+,"com.samar.technology.LivesGTracker.service.FamilyService","com.samar.technology.LivesTracker.controller.FamilyController"})
 @ImportResource("classpath:application-context.xml")
 public class LivesTrackerApplication {
 

@@ -4,11 +4,17 @@ package com.samar.technology.LivesTracker.controller;
 import com.samar.technology.LivesTracker.model.User;
 import com.samar.technology.LivesTracker.service.UserService;
 import com.samar.technology.LivesTracker.utility.UserDto;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.PropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.StringWriter;
 import java.util.List;
 
 @RestController
@@ -18,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_XML)
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -45,5 +51,14 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    public String convertUserToXml(UserDto user) throws JAXBException{
+        JAXBContext jaxbContext = JAXBContext.newInstance(UserDto.class);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(user, sw);
+        return sw.toString();
     }
 }

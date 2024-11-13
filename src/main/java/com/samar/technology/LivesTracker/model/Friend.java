@@ -3,6 +3,7 @@ package com.samar.technology.LivesTracker.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="friend")

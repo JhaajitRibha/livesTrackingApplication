@@ -2,9 +2,13 @@ package com.samar.technology.LivesTracker.controller;
 
 import com.samar.technology.LivesTracker.model.LivesDictionary;
 import com.samar.technology.LivesTracker.service.LivesDictionaryService;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.StringWriter;
 import java.util.List;
 
 @RestController
@@ -23,6 +27,27 @@ public class LivesDictionaryController {
     @PostMapping("/words")
     public String dictionaryInsertion(@RequestBody LivesDictionary livesDictionary){
         return livesDictionaryService.dictionaryInsertion(livesDictionary);
+    }
+
+    @GetMapping("/words/xmlString/{wordId}")
+    public String getUserXmlString(@PathVariable("wordId") Long id){
+        LivesDictionary fetchedDict = livesDictionaryService.getWordMeaningXml(id);
+        return convertToXmlString(fetchedDict);
+    }
+    private String convertToXmlString(LivesDictionary livesDictionary){
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(LivesDictionary.class);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            StringWriter stringWriter = new StringWriter();
+            marshaller.marshal(livesDictionary, stringWriter);
+
+            return stringWriter.toString();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+            return "Error converting to XML";
+        }
     }
 
 }
