@@ -1,5 +1,6 @@
 package com.samar.technology.LivesTracker;
 
+import com.samar.technology.LivesTracker.ThirdPartyUsingRestTemplate.restTemplateService.RestTemplateService;
 import com.samar.technology.LivesTracker.model.Blog;
 import com.samar.technology.LivesTracker.model.User;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ class LivesTrackerApplicationTests {
 	@Autowired
 	private WebClient.Builder webclientBuilder;
 
+	@Autowired
+	private RestTemplateService restTemplateService;
 
 	@Test
 	void contextLoads() {
@@ -25,6 +28,11 @@ class LivesTrackerApplicationTests {
 	@Test
 	void info(){
 		System.out.println("testing by Ajit Jha");
+	}
+
+	@Test
+	void postInfo(){
+		System.out.println(restTemplateService.getPostById(1));
 	}
 
 	@Test

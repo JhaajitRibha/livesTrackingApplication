@@ -25,4 +25,9 @@ public class RestTemplateService {
         return restTemplate.postForObject(url,livesDictionary,String.class);
 
     }
+
+    public String getPostById(Integer id){
+        String url = "https://dummyjson.com/posts/"+id;
+        return restTemplate.getForEntity(url,String.class).getBody();
+    }
 }
