@@ -12,4 +12,12 @@ public interface LivesDictionaryDao {
     public String insertDictionary(LivesDictionary livesDictionary);
 
     public LivesDictionary getWordMeaningXml(Long id);
+
+    public LivesDictionary getDictById(Long id);
+
+    public LivesDictionary getDictByWordAndAuthor(String word,String author);
+
+    public void deleteByWord(String word);
+
+    public LivesDictionary updateDictById(Long id,String word,String wordMeaning,String author);
 }

@@ -8,6 +8,7 @@ import jakarta.xml.bind.Marshaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.io.StringWriter;
 import java.util.List;
 
@@ -34,6 +35,30 @@ public class LivesDictionaryController {
         LivesDictionary fetchedDict = livesDictionaryService.getWordMeaningXml(id);
         return convertToXmlString(fetchedDict);
     }
+
+    @GetMapping("/words/{id}")
+    public LivesDictionary getLivesDictionary(@PathVariable("id") Long id) {
+        return livesDictionaryService.getDictById(id);
+    }
+
+    @GetMapping("/words/{word}/author/{author}")
+    public LivesDictionary getLiveDictByWordAndAuthor(@PathVariable String word,@PathVariable String author){
+        return livesDictionaryService.getDictByWordAndAuthor(word,author);
+    }
+
+    @DeleteMapping("/words/{word}")
+    public void deleteDictByWord(@PathVariable String word){
+         livesDictionaryService.deleteByWord(word);
+    }
+
+    @PutMapping("/words/id/{id}")
+    public LivesDictionary updateDictById(@PathVariable Long id,
+                                          @RequestParam String word,
+                                          @RequestParam String wordMeaning,
+                                          @RequestParam String author){
+        return livesDictionaryService.updateDictById(id,word,wordMeaning,author);
+    }
+
     private String convertToXmlString(LivesDictionary livesDictionary){
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(LivesDictionary.class);

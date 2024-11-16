@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+@EnableJpaRepositories(basePackages = "com.samar.technology.LivesTracker.repository")
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.samar.technology.LivesTracker.beanController","com.samar.technology.LivesTracker.beanService","com.samar.technology.LivesTracker.config"
 ,"com.samar.technology.LivesTracker.controller","com.samar.technology.LivesTracker.service","com.samar.technology.LivesTracker.Dao.CommonDao","com.samar.technology.LivesTracker.controller.BlogController","com.samar.technology.LivesTracker"
-,"com.samar.technology.LivesGTracker.service.FamilyService","com.samar.technology.LivesTracker.controller.FamilyController"})
+,"com.samar.technology.LivesGTracker.service.FamilyService","com.samar.technology.LivesTracker.controller.FamilyController","com.samar.technology.LivesTracker.repository"})
 @ImportResource("classpath:application-context.xml")
 public class LivesTrackerApplication {
 

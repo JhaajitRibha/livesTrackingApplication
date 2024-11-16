@@ -31,4 +31,20 @@ public class LivesDictionaryService {
     public LivesDictionary getWordMeaningXml(Long id){
         return livesDictionaryDao.getWordMeaningXml(id);
     }
+
+    public LivesDictionary getDictById(Long id){
+        return livesDictionaryDao.getDictById(id);
+    }
+
+    public LivesDictionary getDictByWordAndAuthor(String word,String author){
+        return livesDictionaryDao.getDictByWordAndAuthor(word,author);
+    }
+
+    public void deleteByWord(String word){
+        livesDictionaryDao.deleteByWord(word);
+    }
+
+    public LivesDictionary updateDictById(Long id, String word, String wordMeaning,String author){
+        return livesDictionaryDao.updateDictById(id,word,wordMeaning,author);
+    }
 }
