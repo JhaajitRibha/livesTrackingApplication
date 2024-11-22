@@ -57,8 +57,6 @@ class LivesTrackerApplicationTests {
 			System.out.println(data.getBlogHeading() + "  is given by " + data.getUser().getEmail());
 		});
 	}
-
-
 	@Test
 	void monoTuple(){
 		Mono<User> user1 = Mono.just(new User("samar","samar@gmail.com"));
